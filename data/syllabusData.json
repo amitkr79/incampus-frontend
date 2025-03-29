@@ -1,0 +1,39 @@
+{
+  "stream": "UG",
+  "scheme": "2022",
+  "year": "I",
+  "branch": "CE",
+  "title": "Civil Engineering",
+  "subjects": [
+    {
+      "code": "BMATC101",
+      "title": "Mathematics for Civil Engg Stream-I",
+      "pdfLink": "https://vtu.ac.in/pdf/2022syll/BMATC101.pdf",
+      "date": "2025-03-06T12:00:00Z"
+    },
+    {
+      "code": "BMATC201",
+      "title": "Mathematics for Civil Engineering Stream-II",
+      "pdfLink": "https://vtu.ac.in/pdf/2022syll/BMATC201.pdf",
+      "date": "2025-03-06T12:00:00Z"
+    },
+    {
+      "code": "BPHYC102/202",
+      "title": "Physics for Civil Engg Streams",
+      "pdfLink": "https://vtu.ac.in/pdf/2022syll/BPHYC102.pdf",
+      "date": "2025-03-06T12:00:00Z"
+    },
+    {
+      "code": "BCHEC102/202",
+      "title": "Chemistry for Civil Engineering Stream",
+      "pdfLink": "https://vtu.ac.in/pdf/2022syll/BCHEC102.pdf",
+      "date": "2025-03-06T12:00:00Z"
+    },
+    {
+      "code": "BCIVC103/203",
+      "title": "Engineering Mechanics",
+      "pdfLink": "https://vtu.ac.in/pdf/2022syll/BCIVC103.pdf",
+      "date": "2025-03-06T12:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,578 @@
+[
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"I",
+    "branch":"AI/ML",
+    "title":"Artificial Intelligence and Machine Learning",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"II",
+    "branch":"AI/ML",
+    "title":"Artificial Intelligence and Machine Learning",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"III",
+    "branch":"AI/ML",
+    "title":"Artificial Intelligence and Machine Learning",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"IV",
+    "branch":"AI/ML",
+    "title":"Artificial Intelligence and Machine Learning",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"I",
+    "branch":"CHEM",
+    "title":"Chemistry",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"II",
+    "branch":"CHEM",
+    "title":"Chemistry",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"III",
+    "branch":"CHEM",
+    "title":"Chemistry",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"IV",
+    "branch":"CHEM",
+    "title":"Chemistry",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"I",
+    "branch":"CVL",
+    "title":"Civil Egineering",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"II",
+    "branch":"CVL",
+    "title":"Civil Egineering",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"III",
+    "branch":"CVL",
+    "title":"Civil Egineering",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"IV",
+    "branch":"CVL",
+    "title":"Civil Egineering",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "CSE",
+    "title": "Computer Science & Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "CSE",
+    "title": "Computer Science & Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/cse-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "CSE",
+    "title": "Computer Science & Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/cse-2022-III.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "CSE",
+    "title": "Computer Science & Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/cse-2022-IV.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "ECE",
+    "title": "Electronics & Communication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/ece-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "ECE",
+    "title": "Electronics & Communication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/ece-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "ECE",
+    "title": "Electronics & Communication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/ece-2022-III.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "ECE",
+    "title": "Electronics & Communication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/ece-2022-IV.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"I",
+    "branch":"ECSE",
+    "title":"Electronics & Computer Science Engineering Syllabus (2022 Scheme)",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"II",
+    "branch":"ECSE",
+    "title":"Electronics & Computer Science Engineering Syllabus (2022 Scheme)",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"III",
+    "branch":"ECSE",
+    "title":"Electronics & Computer Science Engineering Syllabus (2022 Scheme)",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream":"UG",
+    "scheme":"2022",
+    "year":"IV",
+    "branch":"ECSE",
+    "title":"Electronics & Computer Science Engineering Syllabus (2022 Scheme)",
+    "date":"Feb 2,2025",
+    "pdfLink":"https://example.com/syllabus/cse-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "MECH",
+    "title": "Mechanical Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mech-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "MECH",
+    "title": "Mechanical Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mech-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "MECH",
+    "title": "Mechanical Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mech-2022-III.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "MECH",
+    "title": "Mechanical Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mech-2022-IV.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "MATH",
+    "title": "Mathematics (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "MATH",
+    "title": "Mathematics (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "MATH",
+    "title": "Mathematics (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "MATH",
+    "title": "Mathematics (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "RBAI",
+    "title": "Robotics and Artificial Intelligence(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "RBAI",
+    "title": "Robotics and Artificial Intelligence(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "RBAI",
+    "title": "Robotics and Artificial Intelligence(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "RBAI",
+    "title": "Robotics and Artificial Intelligence(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "BT",
+    "title": "Biotechonology Engineering(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "BT",
+    "title": "Biotechonology Engineering(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "BT",
+    "title": "Biotechonology Engineering(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "BT",
+    "title": "Biotechonology Engineering(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "CSE&DS",
+    "title": "Computer Science & Engineering (Data Science)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "CSE&DS",
+    "title": "Computer Science & Engineering (Data Science)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "CSE&DS",
+    "title": "Computer Science & Engineering (Data Science)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "CSE&DS",
+    "title": "Computer Science & Engineering (Data Science)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "CSE&IOT",
+    "title": "Computer Science & Engineering (IOT & Cybersecurity inlcuding Blockchain Techonology)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "CSE&IOT",
+    "title": "Computer Science & Engineering (IOT & Cybersecurity inlcuding Blockchain Techonology)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "CSE&IOT",
+    "title": "Computer Science & Engineering (IOT & Cybersecurity inlcuding Blockchain Techonology)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "CSE&IOT",
+    "title": "Computer Science & Engineering (IOT & Cybersecurity inlcuding Blockchain Techonology)(2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "ETE",
+    "title": "Electronics & Telecommunication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "ETE",
+    "title": "Electronics & Telecommunication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "ETE",
+    "title": "Electronics & Telecommunication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "ETE",
+    "title": "Electronics & Telecommunication Engineering Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "DH",
+    "title": "Department Of Humanities Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "DH",
+    "title": "Department Of Humanities Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "DH",
+    "title": "Department Of Humanities Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "DH",
+    "title": "Department Of Humanities Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "PG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "MCA",
+    "title": "Mater Of Computer Application Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "PG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "MCA",
+    "title": "Mater Of Computer Application Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "PG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "MBA",
+    "title": "MBA Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-I.pdf"
+  },
+  {
+    "stream": "PG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "MBA",
+    "title": "MBA Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "I",
+    "branch": "PHY",
+    "title": "Physics Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "II",
+    "branch": "PHY",
+    "title": "Physics Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "III",
+    "branch": "PHY",
+    "title": "Physics Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-II.pdf"
+  },
+  {
+    "stream": "UG",
+    "scheme": "2022",
+    "year": "IV",
+    "branch": "PHY",
+    "title": "Physics Syllabus (2022 Scheme)",
+    "date": "March 5, 2022",
+    "pdfLink": "https://example.com/syllabus/mba-2022-II.pdf"
+  }
+]
