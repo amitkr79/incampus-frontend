@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import ClubCard from "@/components/Clubs/ClubCard";
@@ -12,69 +12,88 @@ export type CLUB = {
   clublogo: string;
   createdon: string;
   about: string;
-  isFollowed:boolean
+  isFollowed: boolean;
 };
 const ExploreClubs = () => {
   const [clubList, setClubList] = useState<CLUB[] | []>([]);
-  const[followedClub,setClubFollowedClub] = useState<any>()
-  const {user} = useContext(AuthContext)
-  const [loading,setLoading] =useState(false)
-  const router = useRouter()
+  const [followedClub, setClubFollowedClub] = useState<any>();
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     GetAllClubs();
-  },[]);
+  }, []);
 
   const GetAllClubs = async () => {
-    setLoading(true)
+    setLoading(true);
     const result = await axios.get(process.env.EXPO_PUBLIC_HOST + "/clubs");
     console.log(result.data);
     setClubList(result?.data);
     GetUserFollowedClubs();
-    setLoading(false)
+    setLoading(false);
   };
 
-  const GetUserFollowedClubs=async()=>{
-    const result = await axios.get(process.env.EXPO_PUBLIC_HOST+'/clubfollower?u_email='+user?.email)
-    console.log(result.data)
-    setClubFollowedClub(result?.data)
-  }
+  const GetUserFollowedClubs = async () => {
+    const result = await axios.get(
+      process.env.EXPO_PUBLIC_HOST + "/clubfollower?u_email=" + user?.email
+    );
+    console.log(result.data);
+    setClubFollowedClub(result?.data);
+  };
 
-
-  const isFollowed = (clubId:number)=>{
-    const record = followedClub && followedClub?.find((item:any)=>item.club_id==clubId)
-    return record ? true : false
-  }
+  const isFollowed = (clubId: number) => {
+    const record =
+      followedClub && followedClub?.find((item: any) => item.club_id == clubId);
+    return record ? true : false;
+  };
   return (
     <View>
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
           padding: 10,
           margin: 10,
           alignItems: "center",
           borderWidth: 1,
           borderStyle: "dashed",
           borderRadius: 15,
+          height:100,
+          justifyContent:'center'
         }}
       >
-        <Text
-          style={{
-            fontSize: 17,
-            color: Colors.GRAY,
-          }}
-        >
-          Create New Teams / Clubs
-        </Text>
-        <Button text="+ Add" onPress={() =>router.push('/add-post/addClub') } />
+        <Pressable onPress={() => router.push("/add-post/addClub")}>
+          <View style={{
+            display:"flex",
+            flexDirection:"column",
+            alignItems:"center",
+            justifyContent:'center'
+          }}>
+            <Text
+              style={{
+                fontSize: 17,
+                color: Colors.GRAY,
+              }}
+            >
+              Create New Teams / Clubs
+            </Text>
+            <Text style={{
+              fontSize:30,
+              color:Colors.GRAY,
+            }}> + </Text>
+          </View>
+        </Pressable>
       </View>
       <FlatList
         data={clubList}
         onRefresh={GetAllClubs}
         refreshing={loading}
         numColumns={2}
-        renderItem={({ item, index }) => <ClubCard {...item} isFollowed={isFollowed(item.id)} refreshData={GetAllClubs} />}
+        renderItem={({ item, index }) => (
+          <ClubCard
+            {...item}
+            isFollowed={isFollowed(item.id)}
+            refreshData={GetAllClubs}
+          />
+        )}
       />
     </View>
   );

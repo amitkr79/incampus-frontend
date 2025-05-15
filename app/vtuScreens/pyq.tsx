@@ -9,12 +9,7 @@ const PreviousYear = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Custom Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Previous Year Paper</Text>
-      </View>
+
 
     </SafeAreaView>
   )

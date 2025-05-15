@@ -10,7 +10,7 @@ export default function AddPost(){
         <View 
             style={{padding:20}}
         >
-            <UserAvatar name={user?.name} image={user?.image} date='Now'  />
+            <UserAvatar name={user?.name} image={user?.image} date='Now'   />
             <WritePost/>
         </View>
     )

@@ -1,55 +1,106 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
-import { useRouter } from 'expo-router'
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import NotificationBanner from "@/components/Shared/NotificationBanner";
+import { NotificationSources } from "@/constants/NotificationSource";
+import { fetchAicteCirculars } from "@/api/circular";
+
+type ITEM = {
+  title: string;
+  icon: string;
+  path: string;
+};
+
+const data: ITEM[] = [
+  { title: "Circular", icon: "document-text-outline", path: "/aicte-screens/Circulars" },
+  { title: "Announcement", icon: "megaphone-outline", path: "/aicte-screens/Anouncement" },
+];
 
 const AICTEScreens = () => {
-    const router = useRouter()
+  const router = useRouter();
+  const [circulars, setCirculars] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadCirculars();
+  }, []);
+
+  const loadCirculars = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchAicteCirculars();
+      setCirculars(data);
+    } catch (error) {
+      console.error("Error loading circulars:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Custom Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>AICTE</Text>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Notification Banner */}
+        <NotificationBanner notifications={circulars} source={NotificationSources.AICTE} loading={loading} />
 
+        <Text style={styles.sectionTitle}>Resources</Text>
+
+        <View style={styles.cardContainer}>
+          {data.map((item, index) => (
+            <TouchableOpacity key={index} style={styles.card} onPress={() => router.push(item.path)}>
+              <Ionicons name={item.icon} size={30} color="#1FD4AF" />
+              <Text style={styles.cardText}>{item.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
+export default AICTEScreens;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#FFFAFA",
-        padding: 5,
-      },
-      scrollContainer: {
-        paddingBottom: 20,
-      },
-      header: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "#1FD4AF",
-        paddingVertical: 12,
-        paddingHorizontal: 15,
-        borderRadius: 10,
-        marginBottom: 10,
-      },
-      headerButton: {
-        padding: 5,
-      },
-      headerTitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "white",
-        flex: 1,
-        textAlign: "center",
-      },
-})
-
-export default AICTEScreens
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFAFA",
+  },
+  scrollContainer: {
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+  sectionTitle: {
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 15,
+    paddingLeft: 15,
+    color: "#333",
+  },
+  cardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginTop: 20,
+    paddingHorizontal: 15,
+  },
+  card: {
+    width: "48%",
+    height: 100,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+    marginBottom: 15,
+  },
+  cardText: {
+    marginTop: 8,
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+  },
+});

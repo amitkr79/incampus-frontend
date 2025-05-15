@@ -5,6 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import NotificationBanner from "@/components/Shared/NotificationBanner";
 import { fetchCirculars } from "@/api/circular";
+import { NotificationSources } from "@/constants/NotificationSource";
+import Colors from "@/constants/Colors";
 
 const data = [
   { title: "Exams Circular", icon: "document-text-outline", path: "/vtuScreens/examination" },
@@ -19,39 +21,26 @@ const VTUScreens = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadCirculars = async () => {
-      try {
-        const data = await fetchCirculars();
-        setCirculars(data);
-      } catch (error) {
-        console.error("Error loading circulars:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadCirculars();
   }, []);
 
+  const loadCirculars = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchCirculars();
+      setCirculars(data);
+    } catch (error) {
+      console.error("Error loading circulars:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>VTU</Text>
-        <TouchableOpacity onPress={() => router.push("/screens/vtuNotification")} style={styles.headerButton}>
-          <Ionicons name="notifications-outline" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* {loading ? (
-          <ActivityIndicator size="large" color="#1FD4AF" style={{ marginVertical: 20 }} />
-        ) : (
-          <NotificationBanner notifications={circulars} source={"vtu"} />
-        )} */}
-          <NotificationBanner notifications={circulars} source={"vtu"} />
+        <NotificationBanner notifications={circulars} source={NotificationSources.VTU} loading={loading} />
+
         <Text style={styles.sectionTitle}>Circular & Resources</Text>
 
         <View style={styles.cardContainer}>
@@ -72,30 +61,10 @@ export default VTUScreens;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFAFA",
-    padding: 5,
   },
   scrollContainer: {
+    paddingTop: 10, // ✅ Fix spacing above NotificationBanner
     paddingBottom: 20,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#1FD4AF",
-    paddingVertical: 12,
-    paddingHorizontal: 15,
-    borderRadius: 10,
-  },
-  headerButton: {
-    padding: 5,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
-    flex: 1,
-    textAlign: "center",
   },
   sectionTitle: {
     fontWeight: "bold",

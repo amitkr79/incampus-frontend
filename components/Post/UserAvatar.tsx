@@ -8,19 +8,21 @@ type USERAVATAR = {
   name: string;
   image: string;
   date: string;
+  branch?:string;
 };
 
-const UserAvatar = ({ name, image, date }: USERAVATAR) => {
+const UserAvatar = ({ name, image, date,branch="Master of computer application" }: USERAVATAR) => {
   return (
     <View style={styles.container}>
       <View style={styles.userRow}>
         {/* User Image */}
         <Image source={{ uri: image }} style={styles.avatar} />
 
-        {/* User Name & Time */}
+        {/* User Name & Info */}
         <View>
           <Text style={styles.userName}>{name}</Text>
-          <Text style={styles.timeAgo}>{moment(date).fromNow()}</Text>
+          <Text style={styles.userInfo}>{branch}</Text>
+          <Text style={styles.timeAgo}>{moment(date).format("MMM Do YY") }</Text>
         </View>
       </View>
 
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingVertical: 8,
   },
   userRow: {
     flexDirection: "row",
@@ -54,9 +57,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
-  timeAgo: {
+  userInfo: {
     fontSize: 14,
     color: Colors.GRAY,
+    marginTop: 2,
+  },
+  timeAgo: {
+    fontSize: 12,
+    color: Colors.GRAY,
+    marginTop: 2,
   },
 });
 

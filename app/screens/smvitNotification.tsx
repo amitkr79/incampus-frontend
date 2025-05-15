@@ -5,6 +5,7 @@ import { smvitNotificationData } from "@/data/notification";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import Colors from "@/constants/Colors";
 
 const NotificationScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -30,7 +31,7 @@ const NotificationScreen = () => {
       {/* 🔹 Header */}
        <View style={styles.header}>
               <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-                <Ionicons name="arrow-back" size={24} color="white" />
+                <Ionicons name="arrow-back" size={24} color="black" />
               </TouchableOpacity>
               <Text style={styles.headerTitle}>Notification</Text>
             </View>
@@ -71,7 +72,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#1FD4AF",
+    // backgroundColor: "#1FD4AF",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#ddd",
+    backgroundColor: Colors.WHITE,
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 10,
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "white",
+    color: Colors.BLACK,
     flex: 1,
     textAlign: "center",
   },

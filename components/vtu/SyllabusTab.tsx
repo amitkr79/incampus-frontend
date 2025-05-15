@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import Dropdown, { OptionItem } from "./Dropdown"; // Ensure correct import
+import Dropdown, { OptionItem } from "./Dropdown";
 import {
   streamOptions,
   schemeOptions,
@@ -16,7 +16,7 @@ import {
 } from "@/data/dropdownData";
 import PdfModalView from "@/components/Shared/PdfModalView";
 import { AntDesign } from "@expo/vector-icons";
-import { fetchSyllabus } from "@/api/syllabus"; // Import API function
+import { fetchSyllabus } from "@/api/syllabus";
 
 type SubjectItem = {
   code: string;
@@ -24,10 +24,15 @@ type SubjectItem = {
   pdfLink: string;
   date: string;
 };
-
+type FullsyllabusItem = {
+  title: string;
+  pdfLink: string;
+  date?: string;
+};
 type SyllabusType = {
   title: string;
   subjects: SubjectItem[];
+  fullsyllabus: FullsyllabusItem[];
 };
 
 const SyllabusTab = () => {
@@ -50,38 +55,67 @@ const SyllabusTab = () => {
 
   useEffect(() => {
     const getSyllabus = async () => {
-      if (allSelected) {
-        setLoading(true);
-        setError(null);
-        setSelectedSyllabus(null); // Clear previous data
+      if (!allSelected) return;
 
-        try {
-          const syllabus = await fetchSyllabus({
-            stream: selectedStream.value,
-            scheme: selectedScheme.value,
-            year: selectedYear.value,
-            branch: selectedBranch.value,
-          });
+      setLoading(true);
+      setError(null);
+      setSelectedSyllabus(null);
 
-          if (syllabus && syllabus.subjects.length > 0) {
-            setSelectedSyllabus(syllabus);
-          } else {
-            setError("No syllabus found for the selected options.");
-          }
-        } catch (err) {
-          setError("Failed to fetch syllabus. Please try again.");
-        } finally {
-          setLoading(false);
+      try {
+        const syllabus = await fetchSyllabus({
+          stream: selectedStream!.value,
+          scheme: selectedScheme!.value,
+          year: selectedYear!.value,
+          branch: selectedBranch!.value,
+        });
+         console.log("Raw API response:", JSON.stringify(syllabus, null, 2)); // Add this line
+
+        if (
+          syllabus &&
+          (syllabus.subjects?.length > 0 || syllabus.fullsyllabus?.length > 0)
+        ) {
+          setSelectedSyllabus(syllabus);
+        } else {
+          setError("No syllabus found for the selected options.");
         }
+      } catch {
+        setError("Failed to fetch syllabus. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
 
     getSyllabus();
   }, [selectedStream, selectedScheme, selectedYear, selectedBranch]);
 
+  const renderCard = (item: SubjectItem | FullsyllabusItem) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => {
+        setPdfLink(item.pdfLink);
+        setPdfVisible(true);
+      }}
+    >
+      <View style={styles.cardContent}>
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        {item.date && (
+          <Text style={styles.cardDate}>
+            Last updated:{" "}
+            {new Date(item.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+          </Text>
+        )}
+      </View>
+      <AntDesign name="download" size={24} color="#1FD4AF" />
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
-      {/* Dropdown Section */}
+      {/* Dropdowns */}
       <View style={styles.tripleRow}>
         <View style={styles.dropdownContainer}>
           <Text style={styles.label}>Stream</Text>
@@ -108,7 +142,6 @@ const SyllabusTab = () => {
           />
         </View>
       </View>
-
       <View style={styles.singleRow}>
         <View style={styles.dropdownContainer}>
           <Text style={styles.label}>Branch</Text>
@@ -120,59 +153,34 @@ const SyllabusTab = () => {
         </View>
       </View>
 
-      {/* Results Title */}
+      {/* Result Title */}
       <View style={styles.resultText}>
         <Text style={styles.label}>Results</Text>
       </View>
-      {/* Show warning message if not all options are selected */}
+
       {!allSelected && (
         <Text style={styles.warningText}>
           Please select all options to view the syllabus.
         </Text>
       )}
-
-      {/* Loading Indicator */}
       {loading && <ActivityIndicator size="large" color="#1FD4AF" />}
-
-      {/* Error Message */}
       {error && <Text style={styles.warningText}>{error}</Text>}
 
-      {/* Scrollable List for Syllabus */}
+      {/* Render either subjects or fullsyllabus */}
       {allSelected && selectedSyllabus && (
         <FlatList
-          data={selectedSyllabus.subjects}
-          keyExtractor={(item) => item.code}
+          data={
+            selectedSyllabus.subjects.length > 0
+              ? selectedSyllabus.subjects
+              : selectedSyllabus.fullsyllabus
+          }
+          keyExtractor={(item, index) => item.title || index.toString()}
           contentContainerStyle={{ paddingBottom: 20 }}
           keyboardShouldPersistTaps="handled"
-          ListEmptyComponent={
-            <Text style={styles.warningText}>No subjects found.</Text>
-          }
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.card}
-              onPress={() => {
-                setPdfLink(item.pdfLink);
-                setPdfVisible(true);
-              }}
-            >
-              <View style={styles.cardContent}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardDate}>
-                  Last updated:{" "}
-                  {new Date(item.date).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </Text>
-              </View>
-              <AntDesign name="download" size={24} color="#1FD4AF" />
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => renderCard(item)}
         />
       )}
 
-      {/* PDF Modal */}
       <PdfModalView
         isVisible={pdfVisible}
         pdf={{ uri: pdfLink }}
@@ -185,29 +193,11 @@ const SyllabusTab = () => {
 export default SyllabusTab;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#FFF",
-  },
-  tripleRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  singleRow: {
-    flexDirection: "row",
-    marginVertical: 10,
-  },
-  dropdownContainer: {
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  label: {
-    fontSize: 15,
-    fontWeight: "500",
-    marginBottom: 10,
-    color: "#333",
-  },
+  container: { flex: 1, padding: 10, backgroundColor: "#FFF" },
+  tripleRow: { flexDirection: "row", justifyContent: "space-between" },
+  singleRow: { flexDirection: "row", marginVertical: 10 },
+  dropdownContainer: { flex: 1, marginHorizontal: 5 },
+  label: { fontSize: 15, fontWeight: "500", marginBottom: 10, color: "#333" },
   resultText: {
     marginHorizontal: 5,
     marginTop: 10,
@@ -233,18 +223,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     elevation: 2,
   },
-  cardContent: {
-    padding: 5,
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#222",
-  },
-  cardDate: {
-    fontSize: 14,
-    color: "#555",
-    marginTop: 4,
-  },
+  cardContent: { padding: 5, flex: 1 },
+  cardTitle: { fontSize: 16, fontWeight: "bold", color: "#222" },
+  cardDate: { fontSize: 14, color: "#555", marginTop: 4 },
 });

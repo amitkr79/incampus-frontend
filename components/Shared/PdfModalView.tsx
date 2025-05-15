@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Modal, View, ActivityIndicator, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  Modal,
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Linking,
+} from "react-native";
 import { WebView } from "react-native-webview";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -10,12 +18,30 @@ type Props = {
 };
 
 const PdfModalView = ({ isVisible, pdf, onClose }: Props) => {
-  const [loading, setLoading] = useState<boolean>(true); // Loader state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const encodedUrl = encodeURIComponent(pdf.uri);
+  const googleDocsViewer = `https://docs.google.com/gview?embedded=true&url=${encodedUrl}`;
+
+  const handleLoadEnd = () => {
+    setLoading(false);
+    setError(null);
+  };
+
+  const handleError = () => {
+    setError("Failed to load PDF. Open in browser instead.");
+    setLoading(false);
+  };
+
+  const openInBrowser = () => {
+    Linking.openURL(pdf.uri);
+  };
 
   return (
     <Modal visible={isVisible} animationType="slide" transparent>
       <View style={styles.modalContainer}>
-        {/* Header with Close Button */}
+        {/* Modal Header */}
         <View style={styles.modalHeader}>
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Ionicons name="close" size={28} color="white" />
@@ -23,17 +49,31 @@ const PdfModalView = ({ isVisible, pdf, onClose }: Props) => {
           <Text style={styles.headerTitle}>PDF Viewer</Text>
         </View>
 
-        {/* WebView (Always Rendered) */}
+        {/* WebView to Load PDF */}
         <View style={styles.webviewContainer}>
-          <WebView
-            source={{ uri: `https://docs.google.com/gview?embedded=true&url=${pdf?.uri}` }}
-            style={styles.webview}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            onLoad={() => setLoading(false)} // Hide loader when PDF loads
-          />
+          {!error ? (
+            <WebView
+              key={pdf?.uri}
+              source={{ uri: googleDocsViewer }}
+              style={styles.webview}
+              javaScriptEnabled
+              domStorageEnabled
+              onLoad={handleLoadEnd}
+              onError={handleError}
+            />
+          ) : (
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{error}</Text>
+              <TouchableOpacity
+                onPress={openInBrowser}
+                style={styles.browserButton}
+              >
+                <Text style={styles.browserButtonText}>Open in Browser</Text>
+              </TouchableOpacity>
+            </View>
+          )}
 
-          {/* Loader Overlay (Hides When WebView Loads) */}
+          {/* Loader while PDF is loading */}
           {loading && (
             <View style={styles.loaderContainer}>
               <ActivityIndicator size="large" color="#1FD4AF" />
@@ -55,7 +95,6 @@ const styles = StyleSheet.create({
   modalHeader: {
     flexDirection: "row",
     alignItems: "center",
-    // justifyContent: "space-between",
     backgroundColor: "#1FD4AF",
     paddingVertical: 12,
     paddingHorizontal: 15,
@@ -69,27 +108,48 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
-    textAlign: "center", 
-    left:85
+    textAlign: "center",
+    left: 85,
   },
   webviewContainer: {
     flex: 1,
-    position: "relative", // Required for overlay effect
   },
   webview: {
     flex: 1,
     backgroundColor: "#fff",
   },
   loaderContainer: {
-    ...StyleSheet.absoluteFillObject, // Position loader over WebView
+    ...StyleSheet.absoluteFillObject,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent overlay
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
     color: "#1FD4AF",
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  browserButton: {
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#007AFF",
+    borderRadius: 8,
+  },
+  browserButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

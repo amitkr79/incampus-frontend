@@ -48,24 +48,11 @@ const Event = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <View
-        style={{
-          paddingHorizontal: 20,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Events</Text>
-        <Button text="  +  " onPress={() => router.push("/add-event")} />
-      </View> */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => router.back()}
           style={styles.headerButton}
         >
-          <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Event</Text>
         <TouchableOpacity
@@ -146,16 +133,16 @@ const Event = () => {
 const styles = StyleSheet.create({
   tabText: {
     padding: 8,
-    fontSize: 18,
+    fontSize: 15,
     paddingHorizontal: 15,
     borderRadius: 99,
-    fontWeight: "600",
+    fontWeight: "semibold",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#1FD4AF",
+    backgroundColor: Colors.WHITE,
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 10,
@@ -166,8 +153,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 500,
+    color: Colors.BLACK,
     flex: 1,
     textAlign: "center",
   },

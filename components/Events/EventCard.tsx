@@ -133,51 +133,57 @@ Join us for this amazing event! 🎉
       <Image
         source={{ uri: event.bannerurl }}
         style={{
-          height: 260,
+          height: 250,
           objectFit: "contain",
           borderRadius: 15,
           backgroundColor: "black",
         }}
       />
-      <Text style={{ fontSize: 23, fontWeight: "bold", marginTop: 7 }}>
+      <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 7 }}>
         {event.name}
       </Text>
-      <Text style={{ color: Colors.GRAY, fontSize: 16 }}>
+      <Text style={{ color: Colors.GRAY, fontSize: 13 }}>
         Event by {event.username}
       </Text>
+
       <View style={styles.subContainer}>
-        <Ionicons name="location-outline" size={24} color={Colors.GRAY} />
-        <Text style={{ color: Colors.GRAY, fontSize: 16 }}>
+        <Ionicons name="location-outline" size={20} color={Colors.GRAY} />
+        <Text style={{ color: Colors.GRAY, fontSize: 13 }}>
           {event.location}
         </Text>
       </View>
       <View style={styles.subContainer}>
-        <Ionicons name="calendar-outline" size={24} color={Colors.GRAY} />
-        <Text style={{ color: Colors.GRAY, fontSize: 16 }}>
+        <Ionicons name="calendar-outline" size={20} color={Colors.GRAY} />
+        <Text style={{ color: Colors.GRAY, fontSize: 13 }}>
           {event.event_date} at {event.event_time}
         </Text>
       </View>
-      {
-        !event.isRegistered ?
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 10,
-        }}
-      >
+      {!event.isRegistered ? (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 10,
+          }}
+        >
+          <Button
+            text="Share"
+            outline={true}
+            fullWidth={true}
+            onPress={shareEvent}
+            
+          />
+          <Button text="Register" fullWidth={true} onPress={RegisterForEvent} />
+        </View>
+      ) : (
+        //   to do work to implemtn unregister event
         <Button
-          text="Share"
+          text="Unregister"
           outline={true}
-          fullWidth={true}
-          onPress={shareEvent}
+          onPress={() => console.log("unregistered")}
         />
-        <Button text="Register" fullWidth={true} onPress={RegisterForEvent} />
-      </View>:
-    //   to do work to implemtn unregister event
-        <Button text='Unregister' outline={true} onPress={()=>console.log("unregistered")} />
-      }
+      )}
     </View>
   );
 };

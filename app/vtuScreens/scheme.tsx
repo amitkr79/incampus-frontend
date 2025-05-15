@@ -7,11 +7,13 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import SchemeTab from "@/components/vtu/SchemeTab";
 import SyllabusTab from "@/components/vtu/SyllabusTab";
+import Colors from "@/constants/Colors";
 
 const SchemeSelection = () => {
   const [selectedTab, setSelectedTab] = useState<"scheme" | "syllabus">("scheme");
@@ -42,7 +44,7 @@ const SchemeSelection = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.headerButton}>
-          <Ionicons name="arrow-back" size={24} color="white" />
+          <Ionicons name="arrow-back" size={24} color={Colors.BLACK} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Scheme & Syllabus</Text>
       </View>
@@ -84,11 +86,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFAFA",
     padding: 5,
+    // marginTop:StatusBar.currentHeight
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1FD4AF",
+    backgroundColor: Colors.WHITE,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#ddd",
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 10,
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "white",
+    color: Colors.BLACK,
     flex: 1,
     textAlign: "center",
   },

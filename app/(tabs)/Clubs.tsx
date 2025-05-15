@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
 import EmptyState from "@/components/Clubs/EmptyState";
 import { useRouter } from "expo-router";
@@ -30,7 +30,7 @@ const Clubs = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, }}>
       <View style={{ padding: 10 }}>
         <View
           style={{

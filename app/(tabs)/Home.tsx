@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
 import Header from '@/components/Home/Header'
@@ -10,24 +10,24 @@ const Home = () => {
     <FlatList
       data={[]}
       renderItem={null}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
       ListHeaderComponent={
-    <View
-      style={{
-        // padding:20,
-      }}
-    >
-     {/* Header  */}
-      <Header/>
-
-     {/* Category  */}
-      <Category/>
-
-     {/* Latest Post  */}
-     <LatestPost/>
-    </View>
+        <>
+          <Header/>
+          <Category/>
+          <LatestPost/>
+        </>
       }
     />
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.WHITE,
+    paddingBottom: 20, // Add padding only at bottom if needed
+  },
+})
 
 export default Home

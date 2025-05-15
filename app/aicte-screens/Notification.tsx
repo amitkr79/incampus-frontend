@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { 
-  View, 
-  FlatList, 
-  TouchableOpacity, 
-  Text, 
-  StyleSheet, 
-  ActivityIndicator 
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import PdfModalView from "@/components/Shared/PdfModalView";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { fetchCirculars } from "@/api/circular"; // Import API function
+import { fetchAicteCirculars } from "@/api/circular"; // API to fetch circulars
 
 interface Circular {
   id: string;
@@ -27,12 +26,11 @@ const NotificationScreen: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedPdf, setSelectedPdf] = useState<{ uri: string } | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const getNotifications = async () => {
       try {
-        const data = await fetchCirculars(); // Fetching from API
+        const data = await fetchAicteCirculars();
         setNotifications(data);
       } catch (err) {
         setError("Failed to load notifications.");
@@ -40,37 +38,40 @@ const NotificationScreen: React.FC = () => {
         setLoading(false);
       }
     };
-
     getNotifications();
   }, []);
 
-  // 📌 Open PDF in Modal
   const handleItemPress = (pdfUri: string) => {
-    setSelectedPdf({ uri: pdfUri });
+    setSelectedPdf({ uri: encodeURI(pdfUri) });
     setModalVisible(true);
   };
 
-  // 📌 Close Modal
   const closeModal = () => {
     setSelectedPdf(null);
     setModalVisible(false);
   };
 
-  // 📌 Render List Item (Separated)
+  const formatDate = (isoDate: string) => {
+    return new Date(isoDate).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   const renderItem = ({ item }: { item: Circular }) => (
     <TouchableOpacity onPress={() => handleItemPress(item.link)} style={styles.listItem}>
       <Ionicons name="document-text-outline" size={24} color="#1FD4AF" style={styles.icon} />
       <View style={styles.textContainer}>
         <Text style={styles.listTitle} numberOfLines={2}>{item.text}</Text>
-        <Text style={styles.listDate}>{item.date}</Text>
+        <Text style={styles.listDate}>{formatDate(item.date)}</Text>
       </View>
       <Ionicons name="chevron-forward" size={20} color="#888" />
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* 🔹 Loading State */}
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       {loading ? (
         <ActivityIndicator size="large" color="#1FD4AF" style={styles.loader} />
       ) : error ? (
@@ -81,12 +82,17 @@ const NotificationScreen: React.FC = () => {
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
-          renderItem={renderItem} // Using separated function
+          renderItem={renderItem}
         />
       )}
 
-      {/* 🔹 PDF Modal */}
-      {selectedPdf && <PdfModalView isVisible={isModalVisible} pdf={selectedPdf} onClose={closeModal} />}
+      {selectedPdf && (
+        <PdfModalView
+          isVisible={isModalVisible}
+          pdf={selectedPdf}
+          onClose={closeModal}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -33,7 +33,7 @@ const Category = () => {
     {
       name: "AICTE",
       banner: require("@/assets/images/aicte.png"),
-      path: "add-post",
+      path: "/screens/aicte",
     },
   ];
   return (

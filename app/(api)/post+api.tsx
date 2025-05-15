@@ -28,3 +28,13 @@ export async function GET(request: Request) {
 
   return Response.json(result.rows)
 }
+
+export async function DELETE(request: Request){
+  const {id} = await request.json();
+  const { email } = await request.json();
+  await client.connect();
+  const result = await client.query(`delete from post where id=${id} and email='${email}'`);
+  await client.end();
+  return Response.json(result.rows);
+  
+}

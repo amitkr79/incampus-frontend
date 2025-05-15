@@ -7,13 +7,14 @@ import {
   StyleSheet,
   ActivityIndicator,
   Alert,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import PdfModalView from "@/components/Shared/PdfModalView";
-import { fetchSmvitCirculars } from "@/api/circular"; // Import API function
+import { fetchAicteCirculars } from "@/api/circular"; // Import API function
 import Colors from "@/constants/Colors";
 
 interface Circular {
@@ -24,7 +25,7 @@ interface Circular {
   type: string;
 }
 
-const ExaminationCircular: React.FC = () => {
+const Circular: React.FC = () => {
   const navigation = useNavigation();
   const [circulars, setCirculars] = useState<Circular[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,9 +33,12 @@ const ExaminationCircular: React.FC = () => {
   const [selectedCircular, setSelectedCircular] = useState<Circular | null>(
     null
   );
+  //  const [yearModalVisible, setYearModalVisible] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [downloadingItem, setDownloadingItem] = useState<string | null>(null);
 
+  // Fetch Circulars from API
   useEffect(() => {
     getCirculars();
   }, []);
@@ -42,7 +46,7 @@ const ExaminationCircular: React.FC = () => {
   const getCirculars = async () => {
     try {
       setLoading(true);
-      const data = await fetchSmvitCirculars();
+      const data = await fetchAicteCirculars();
       setCirculars(data);
       setError(null);
     } catch (err) {
@@ -52,16 +56,24 @@ const ExaminationCircular: React.FC = () => {
     }
   };
 
+  // Open PDF Modal
   const openModal = (circular: Circular) => {
+    console.log("Opening PDF:", circular.link); // Debugging Log
+    if (!circular.link) {
+      Alert.alert("Error", "PDF link is missing.");
+      return;
+    }
     setSelectedCircular(circular);
     setModalVisible(true);
   };
 
+  // Close Modal
   const closeModal = () => {
     setSelectedCircular(null);
     setModalVisible(false);
   };
 
+  // Download & Share PDF
   const downloadPDF = async (circular: Circular) => {
     try {
       setDownloadingItem(circular._id);
@@ -85,32 +97,48 @@ const ExaminationCircular: React.FC = () => {
     }
   };
 
-  const renderItem = ({ item }: { item: Circular }) => (
-    <View style={styles.card}>
-      <View style={styles.textContainer}>
-        <TouchableOpacity onPress={() => openModal(item)}>
-          <Text style={styles.circularText}>{item.text}</Text>
-        </TouchableOpacity>
-        <Text style={styles.dateText}>{item.date}</Text>
-        <TouchableOpacity onPress={() => openModal(item)}>
-          <Text style={styles.linkText}>Read more!</Text>
+  // Render Circular List Item
+  const renderItem = ({ item }: { item: Circular }) => {
+    const formattedDate = new Date(item.date).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+    return (
+      <View style={styles.card}>
+        <View style={styles.textContainer}>
+          <TouchableOpacity onPress={() => openModal(item)}>
+            <Text style={styles.circularText} numberOfLines={3}>
+              {item.text}
+            </Text>
+          </TouchableOpacity>
+
+          {/* Date Display */}
+          <Text style={styles.dateText}>{formattedDate}</Text>
+
+          <TouchableOpacity onPress={() => openModal(item)}>
+            <Text style={styles.linkText}>Read more!</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => downloadPDF(item)}
+          disabled={downloadingItem === item._id}
+        >
+          {downloadingItem === item._id ? (
+            <ActivityIndicator size="small" color="#007AFF" />
+          ) : (
+            <Ionicons name="download-outline" size={28} color="#007AFF" />
+          )}
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => downloadPDF(item)}
-        disabled={downloadingItem === item._id}
-      >
-        {downloadingItem === item._id ? (
-          <ActivityIndicator size="small" color="#007AFF" />
-        ) : (
-          <Ionicons name="download-outline" size={28} color="#007AFF" />
-        )}
-      </TouchableOpacity>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>
+      {/* Header (Always Visible) */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -118,12 +146,13 @@ const ExaminationCircular: React.FC = () => {
         >
           <Ionicons name="arrow-back" size={24} color={Colors.BLACK} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Examination Circulars</Text>
+        <Text style={styles.headerTitle}>Circulars</Text>
         <TouchableOpacity onPress={() => {}} style={styles.yearButton}>
           <Text style={styles.yearButtonText}>2025</Text>
         </TouchableOpacity>
       </View>
 
+      {/* Loading/Error Handling inside the content area only */}
       {loading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color="#1FD4AF" />
@@ -143,6 +172,7 @@ const ExaminationCircular: React.FC = () => {
         />
       )}
 
+      {/* PDF Modal */}
       {selectedCircular && (
         <PdfModalView
           isVisible={modalVisible}
@@ -154,14 +184,25 @@ const ExaminationCircular: React.FC = () => {
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFFAFA", padding: 5 },
-  loaderContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFAFA",
+    padding: 5,
+    // marginTop:StatusBar.currentHeight
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   errorContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   errorText: { color: "red", fontSize: 16 },
   header: {
     flexDirection: "row",
     alignItems: "center",
+    // backgroundColor: "#1FD4AF",
     borderBottomWidth: 0.5,
     borderBottomColor: "#ddd",
     paddingVertical: 12,
@@ -169,7 +210,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
   },
-  headerButton: { padding: 5 },
+  headerButton: {
+    padding: 5,
+  },
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
@@ -208,7 +251,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#007AFF",
   },
-  yearButtonText: { fontSize: 14, fontWeight: "400", color: "black" },
+  yearButtonText: {
+    fontSize: 14,
+    fontWeight: "400",
+    color: "black",
+  },
 });
 
-export default ExaminationCircular;
+export default Circular;

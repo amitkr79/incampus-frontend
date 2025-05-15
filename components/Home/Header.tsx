@@ -1,67 +1,98 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useContext } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthContext } from "@/context/AuthContext";
+import React from "react";
 import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useHeaderHeight } from "@react-navigation/elements";
 import Colors from "@/constants/Colors";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
-  const headerHeight = useHeaderHeight();
-
   return (
-    <SafeAreaView style={[styles.container, { marginTop: headerHeight }]}>
-      <View style={styles.topBar}>
-        {/* Left: Logo + Name */}
-        <View style={styles.leftSection}>
-          <Image
-            source={require("@/assets/icon/Light.png")}
-            style={styles.logoImage}
-          />
-          <Text style={styles.logoText}>SMVIT</Text>
+    <View style={styles.container}>
+      {/* Left: Logo + Name */}
+      <View style={styles.brandContainer}>
+        <Image
+          source={require("@/assets/icon/Light.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <View>
+          <Text style={styles.brandName}>SMVIT</Text>
+          <Text style={styles.brandSubtitle}>College</Text>
         </View>
-
-        {/* Right: Notification Icon */}
-        <Link href="/screens/smvitNotification" asChild>
-          <TouchableOpacity>
-            <Ionicons name="notifications" size={22} color="black" />
-          </TouchableOpacity>
-        </Link>
       </View>
-    </SafeAreaView>
+
+      {/* Right: Notification Icon */}
+      <Link href="/screens/smvitNotification" asChild>
+        <TouchableOpacity style={styles.notificationButton} activeOpacity={0.7}>
+          <View style={styles.iconContainer}>
+            <Ionicons 
+              name="notifications-outline" 
+              size={24} 
+              color={Colors.PRIMARY} 
+            />
+            {/* Notification badge - make dynamic as needed */}
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>3</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </Link>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: Colors.WHITE,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.LIGHT_GRAY,
   },
-  topBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between", // Ensures left and right spacing
-    paddingHorizontal: 15,
-    marginTop: 10,
-    marginBottom: 5,
-   
+  brandContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
-  leftSection: {
-    flexDirection: "row",
-    alignItems: "center",
+  logo: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
   },
-  logoImage: {
-    height: 40,
-    width: 40,
-    borderRadius: 40,
-    marginRight: 10, // Space between logo and text
+  brandName: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: Colors.ACCENT,
+    letterSpacing: 0.5,
   },
-  logoText: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#BF1E2E",
+  brandSubtitle: {
+    fontSize: 12,
+    color: Colors.GRAY,
+    marginTop: -2,
+  },
+  notificationButton: {
+    padding: 8,
+  },
+  iconContainer: {
+    position: 'relative',
+  },
+  badge: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    backgroundColor: Colors.ACCENT,
+    borderRadius: 10,
+    width: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: Colors.WHITE,
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });
 

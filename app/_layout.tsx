@@ -60,21 +60,44 @@ export default function RootLayout() {
           headerTransparent:false
         }}/>
         <Stack.Screen name="screens/vtu" options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:"Vtu",
+          headerShadowVisible:true
         }}/>
         <Stack.Screen name="screens/smvit" options={{
           headerShown:false
+        }}/>
+        <Stack.Screen name="screens/aicte" options={{
+          headerShown:true,
+          headerTitle:'Aicte',
+          headerShadowVisible:true,
         }}/>
         <Stack.Screen name="screens/smvitNotification" options={{
           headerShown:false
         }}/>
         <Stack.Screen name="screens/vtuNotification" options={{
-          headerShown:false
+          headerShown:true,
+          headerTitle:'VTU Notifications',
         }}/>
         <Stack.Screen name="vtuScreens/examination" options={{
-          headerShown:false
+          headerShown:false,
+          // title:"Back",
+          // headerShadowVisible:false
+
         }}/>
         <Stack.Screen name="vtuScreens/scheme" options={{
+          headerShown:false,
+          // title:"Back",
+          // headerShadowVisible:false
+        }}/>
+        <Stack.Screen name="vtuScreens/pyq" options={{
+          headerShown:true,
+          headerTitle:"Previous Year Paper"
+        }}/>
+        {/* <Stack.Screen name="aicte-screens/Notification" options={{
+          headerShown:false
+        }}/> */}
+        <Stack.Screen name="aicte-screens" options={{
           headerShown:false
         }}/>
       </Stack>
