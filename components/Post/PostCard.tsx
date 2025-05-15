@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,51 +7,73 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+
 import UserAvatar from "./UserAvatar";
 import Colors from "@/constants/Colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import CommentModal from "../Shared/CommentModal";
+import { AuthContext } from "@/context/AuthContext";
+import { Share } from "react-native";
 
-const PostCard = ({ post, currentUserId }: { post: any, currentUserId?: string }) => {
+const PostCard = ({ post }: { post: any }) => {
+  const { user } = useContext(AuthContext);
   const [likeCount, setLikeCount] = useState(post.likeCount || 0);
   const [liked, setLiked] = useState(post.isLiked || false);
   const [likeLoading, setLikeLoading] = useState(false);
 
-  const handleLike = async () => {
-    if (!currentUserId) return;
-    
-    try {
-      setLikeLoading(true);
-      const newLikeStatus = !liked;
-      
-      // Optimistic UI update
-      setLiked(newLikeStatus);
-      setLikeCount(prev => newLikeStatus ? prev + 1 : prev - 1);
+  const [comments, setComments] = useState<
+    {
+      id: string;
+      text: string;
+      user: {
+        name: string;
+        image: string;
+      };
+    }[]
+  >([]);
+  const [showModal, setShowModal] = useState(false);
 
-      const response = await fetch(`${process.env.EXPO_PUBLIC_HOST}/api/likes`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          postId: post.id,
-          userId: currentUserId,
-        }),
-      });
-
-      if (!response.ok) {
-        // Revert if API call fails
-        setLiked(!newLikeStatus);
-        setLikeCount(prev => newLikeStatus ? prev - 1 : prev + 1);
-      }
-    } catch (error) {
-      console.error("Like error:", error);
-    } finally {
-      setLikeLoading(false);
-    }
+  const handleLike = () => {
+    const newLikeStatus = !liked;
+    setLiked(newLikeStatus);
+    setLikeCount((prev:any) => (newLikeStatus ? prev + 1 : prev - 1));
   };
+
+  const handleAddComment = (commentText: string) => {
+    const newComment = {
+      id: Math.random().toString(),
+      text: commentText,
+      user: {
+        name: user.name,
+        image: user.image,
+      },
+    };
+    setComments((prev) => [...prev, newComment]);
+  };
+
+
+  const handleSharePost = async () => {
+  try {
+    const postUrl = `https://yourapp.com/posts/${post.id}`;
+    const result = await Share.share({
+      message: `Check out this post!\n\n${post.content}\n\nView it here: ${postUrl}`,
+    });
+    if (result.action === Share.sharedAction) {
+      console.log("Post shared!");
+    }
+  } catch (error) {
+    console.error("Error sharing post:", error);
+  }
+};
 
   return (
     <View style={styles.container}>
-      <UserAvatar name={post?.name} image={post?.image} date={post?.createdon} />
+      <UserAvatar
+        name={post?.name}
+        image={post?.image}
+        date={post?.createdon}
+      />
 
       <Text style={styles.content}>{post?.content}</Text>
 
@@ -77,28 +99,53 @@ const PostCard = ({ post, currentUserId }: { post: any, currentUserId?: string }
           </View>
         </Pressable>
 
-        <View style={styles.subContainer}>
-          <MaterialCommunityIcons name="comment-text-outline" size={20} color="black" />
-          <Text style={styles.countText}>{post.commentCount || 0}</Text>
-        </View>
+        <Pressable onPress={() => setShowModal(true)}>
+          <View style={styles.subContainer}>
+            <MaterialCommunityIcons
+              name="comment-text-outline"
+              size={20}
+              color="black"
+            />
+            <Text style={styles.countText}>{comments.length}</Text>
+          </View>
+        </Pressable>
 
-        <View style={styles.subContainer}>
-          <MaterialCommunityIcons name="share-outline" size={20} color="black" />
-        </View>
+        <Pressable onPress={handleSharePost}>
+          <View style={styles.subContainer}>
+            <MaterialCommunityIcons
+              name="share-outline"
+              size={20}
+              color="black"
+            />
+          </View>
+        </Pressable>
       </View>
 
-      <Text style={styles.viewComments}>View All Comments</Text>
+      <Pressable onPress={() => setShowModal(true)}>
+        <Text style={styles.viewComments}>View All Comments</Text>
+      </Pressable>
+
+      <CommentModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        comments={comments}
+        onAddComment={handleAddComment}
+        currentUser={{
+          name: user.name,
+          image: user.image,
+        }}
+      />
     </View>
   );
 };
 
-// Keep your existing styles exactly the same
 const styles = StyleSheet.create({
   container: {
     padding: 15,
     backgroundColor: Colors.WHITE,
     borderRadius: 8,
     paddingVertical: 1,
+    marginBottom: 15,
   },
   content: {
     fontSize: 15,
@@ -109,6 +156,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 456,
     resizeMode: "cover",
+    borderRadius: 8,
   },
   iconRow: {
     marginTop: 10,
